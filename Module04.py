@@ -362,6 +362,124 @@ except KeyError:
     print("Missing information")
 
 # ---------------------------------------------------------
+# Import the re module
+import re
+
+# Write the regex
+regex = r"@robot\d\W"
+
+# Find all matches of regex
+print(re.findall(regex, sentiment_analysis))
+
+# ---------------------------------------------------------
+# Write a regex to obtain user mentions
+print(re.findall(r"User_mentions:\d", sentiment_analysis))
+
+# ---------------------------------------------------------
+# Write a regex to obtain number of likes
+print(re.findall(r"likes:\s\d", sentiment_analysis))
+
+# ---------------------------------------------------------
+# Write a regex to obtain number of retweets
+print(re.findall(r"number\sof\sretweets:\s\d", sentiment_analysis))
+
+# ---------------------------------------------------------
+# Write a regex to match pattern separating sentences
+regex_sentence = r"\W\dbreak\W"
+
+# ---------------------------------------------------------
+# Write a regex to match pattern separating sentences
+regex_sentence = r"\W\dbreak\W"
+
+# Replace the regex_sentence with a space
+sentiment_sub = re.sub(regex_sentence, " ", sentiment_analysis)
+
+# ---------------------------------------------------------
+# Write a regex to match pattern separating sentences
+regex_sentence = r"\W\dbreak\W"
+
+# Replace the regex_sentence with a space
+sentiment_sub = re.sub(regex_sentence, " ", sentiment_analysis)
+
+# Write a regex to match pattern separating words
+regex_words = r"\Wnew\w"
+
+# ---------------------------------------------------------
+# Write a regex to match pattern separating sentences
+regex_sentence = r"\W\dbreak\W"
+
+# Replace the regex_sentence with a space
+sentiment_sub = re.sub(regex_sentence, " ", sentiment_analysis)
+
+# Write a regex to match pattern separating words
+regex_words = r"\Wnew\w"
+
+# Replace the regex_words and print the result
+sentiment_final = re.sub(regex_words, " ", sentiment_sub)
+print(sentiment_final)
+
+# ---------------------------------------------------------
+# Import re module
+import re
+
+for tweet in sentiment_analysis:
+	# Write regex to match http links and print out result
+	print(re.findall(r"https\W\W\W\w+\W\w+\W\w+", tweet))
+
+	# Write regex to match user mentions and print out result
+	print(re.findall(r"@\S+", tweet))
+
+# ---------------------------------------------------------
+# Complete the for loop with a regex to find dates
+for date in sentiment_analysis:
+	print(re.findall(r"\d{1,2}\s\w+\s\w+", date))
+# ---------------------------------------------------------
+# Complete the for loop with a regex to find dates
+for date in sentiment_analysis:
+	print(re.findall(r"\d{1,2}\w\w\s\w+\s\d{4}", date))
+
+# ---------------------------------------------------------
+# Complete the for loop with a regex to find dates
+for date in sentiment_analysis:
+	print(re.findall(r"\d{1,2}\w\w\s\w+\s\d{4}\s\d{1,2}:\d{2}", date))
+
+# ---------------------------------------------------------
+
+
+# ---------------------------------------------------------
+
+
+# ---------------------------------------------------------
+
+
+# ---------------------------------------------------------
+
+
+# ---------------------------------------------------------
+
+
+# ---------------------------------------------------------
+
+
+# ---------------------------------------------------------
+
+
+# ---------------------------------------------------------
+
+
+# ---------------------------------------------------------
+
+
+# ---------------------------------------------------------
+
+
+# ---------------------------------------------------------
+
+
+# ---------------------------------------------------------
+
+
+# ---------------------------------------------------------
 
 
 # ---------------------------------------------------------
