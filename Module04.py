@@ -444,25 +444,145 @@ for date in sentiment_analysis:
 	print(re.findall(r"\d{1,2}\w\w\s\w+\s\d{4}\s\d{1,2}:\d{2}", date))
 
 # ---------------------------------------------------------
-
-
-# ---------------------------------------------------------
-
+# Write a regex matching the hashtag pattern
+regex = r"#\w+"
 
 # ---------------------------------------------------------
+# Write a regex matching the hashtag pattern
+regex = r"#\w+"
 
-
-# ---------------------------------------------------------
-
-
-# ---------------------------------------------------------
-
+# Replace the regex by an empty string
+no_hashtag = re.sub(regex, " ", sentiment_analysis)
 
 # ---------------------------------------------------------
+# Write a regex matching the hashtag pattern
+regex = r"#\w+"
 
+# Replace the regex by an empty string
+no_hashtag = re.sub(regex, "", sentiment_analysis)
+
+# Get tokens by splitting text
+print(re.split(r"\s+", no_hashtag))
 
 # ---------------------------------------------------------
+# Write a regex to match text file name
+regex = r"^[aeiouAEIOU]{2,3}.+txt"
 
+for text in sentiment_analysis:
+    # Find all matches of the regex
+    print(re.findall(regex, text))
+
+    # Replace all matches with empty string
+    print(re.sub(regex, "", text))
+
+# ---------------------------------------------------------
+# Write a regex to match a valid email address
+regex = r"[a-zA-Z0-9!#%&*$\.]+@\w+\.com"
+
+for example in emails:
+  	# Match the regex to the string
+    if re.match(regex, example):
+        # Complete the format method to print out the result
+      	print("The email {email_example} is a valid email".format(email_example=example))
+    else:
+      	print("The email {email_example} is invalid".format(email_example=example))
+
+# ---------------------------------------------------------
+# Write a regex to match a valid password
+regex = r"[a-zA-Z0-9*#$%!&\.]{8,20}"
+
+for example in passwords:
+  	# Scan the strings to find a match
+    if re.search(regex, example):
+        # Complete the format method to print out the result
+      	print("The password {pass_example} is a valid password".format(pass_example=example))
+    else:
+      	print("The password {pass_example} is invalid".format(pass_example=example))
+
+# ---------------------------------------------------------
+# Import re
+import re
+
+# Write a regex to eliminate tags
+string_notags = re.sub(r"<.+?>", "", string)
+
+# Print out the result
+print(string_notags)
+
+# ---------------------------------------------------------
+# Write a lazy regex expression
+numbers_found_lazy = re.findall(r"\d+?", sentiment_analysis)
+
+# Print out the result
+print(numbers_found_lazy)
+
+# ---------------------------------------------------------
+# Write a greedy regex expression
+numbers_found_greedy = re.findall(r"\d+", sentiment_analysis)
+
+# Print out the result
+print(numbers_found_greedy)
+
+# ---------------------------------------------------------
+# Write a greedy regex expression to match
+sentences_found_greedy = re.findall(r"\(.*\)", sentiment_analysis)
+
+# Print out the result
+print(sentences_found_greedy)
+
+# ---------------------------------------------------------
+# Write a lazy regex expression
+sentences_found_lazy = re.findall(r"\(.*?\)", sentiment_analysis)
+
+# Print out the results
+print(sentences_found_lazy)
+
+# ---------------------------------------------------------
+# Write a regex that matches email
+regex_email = r"([A-Za-z0-9]+)@\S+"
+
+for tweet in sentiment_analysis:
+    # Find all matches of regex in each tweet
+    email_matched = re.findall(regex_email, tweet)
+
+    # Complete the format method to print the results
+    print("Lists of users found in this tweet: {}".format(email_matched))
+
+# ---------------------------------------------------------
+# Import re
+import re
+
+# ---------------------------------------------------------
+# Import re
+import re
+
+# Write regex to capture information of the flight
+regex = r"([A-Z]{2})([0-9]{4})\s([A-Z]{3})-([A-Z]{3})\s([0-9]{2}[A-Z]{3})"
+
+# ---------------------------------------------------------
+# Import re
+import re
+
+# Write regex to capture information of the flight
+regex = r"([A-Z]{2})(\d{4})\s([A-Z]{3})-([A-Z]{3})\s(\d{2}[A-Z]{3})"
+
+# Find all matches of the flight information
+flight_matches = re.findall(regex, flight)
+
+# ---------------------------------------------------------
+# Import re
+import re
+
+# Write regex to capture information of the flight
+regex = r"([A-Z]{2})(\d{4})\s([A-Z]{3})-([A-Z]{3})\s(\d{2}[A-Z]{3})"
+
+# Find all matches of the flight information
+flight_matches = re.findall(regex, flight)
+
+# Print the matches
+print("Airline: {} Flight number: {}".format(flight_matches[0][0], flight_matches[0][1]))
+print("Departure: {} Destination: {}".format(flight_matches[0][2], flight_matches[0][3]))
+print("Date: {}".format(flight_matches[0][4]))
 
 # ---------------------------------------------------------
 
