@@ -337,24 +337,83 @@ plt.xlabel('Income level')
 plt.ylabel('Height in cm')
 plt.show()
 
+# ---------------------------------------------------------
+# Select columns
+columns = ['AGE', 'INCOME2', '_VEGESU1']
+subset = brfss[columns]
+
+# Compute the correlation matrix
+print(subset.corr())
 
 # ---------------------------------------------------------
+from scipy.stats import linregress
 
+# Extract the variables
+subset = brfss.dropna(subset=['INCOME2', '_VEGESU1'])
+xs = subset['INCOME2']
+ys = subset['_VEGESU1']
 
-# ---------------------------------------------------------
-
-
-# ---------------------------------------------------------
-
-
-# ---------------------------------------------------------
-
-
-# ---------------------------------------------------------
-
+# Compute the linear regression
+res = linregress(xs, ys)
+print(res)
 
 # ---------------------------------------------------------
+# Plot the scatter plot
+plt.clf()
+x_jitter = xs + np.random.normal(0, 0.15, len(xs))
+plt.plot(x_jitter, ys, 'o', alpha=0.2)
 
+# Plot the line of best fit
+fx = np.array([xs.min(), xs.max()])
+fy = res.intercept + res.slope * fx
+plt.plot(fx, fy, '-', alpha=0.7)
+
+plt.xlabel('Income code')
+plt.ylabel('Vegetable servings per day')
+plt.ylim([0, 6])
+plt.show()
+
+# ---------------------------------------------------------
+from scipy.stats import linregress
+import statsmodels.formula.api as smf
+
+# Run regression with linregress
+subset = brfss.dropna(subset=['INCOME2', '_VEGESU1'])
+xs = subset['INCOME2']
+ys = subset['_VEGESU1']
+res = linregress(xs, ys)
+print(res)
+
+# Run regression with StatsModels
+results = smf.ols('_VEGESU1 ~ INCOME2', data = brfss).fit()
+print(results.params)
+
+# ---------------------------------------------------------
+# Group by educ
+grouped = gss.groupby('educ')
+
+# Compute mean income in each group
+mean_income_by_educ = grouped['realinc'].mean()
+
+# Plot mean income as a scatter plot
+plt.plot(mean_income_by_educ,  'o', alpha = 0.5)
+
+# Label the axes
+plt.xlabel('Education (years)')
+plt.ylabel('Income (1986 $)')
+plt.show()
+
+# ---------------------------------------------------------
+import statsmodels.formula.api as smf
+
+# Add a new column with educ squared
+gss['educ2'] = gss['educ']**2
+
+# Run a regression model with educ, educ2, age, and age2
+results = smf.ols('realinc ~ educ + educ2 + age + age2', data = gss).fit()
+
+# Print the estimated parameters
+print(results.params)
 
 # ---------------------------------------------------------
 
