@@ -193,49 +193,217 @@ sns.scatterplot(x='scaled_sliding_tackle', y='scaled_aggression', hue='cluster_l
 plt.show()
 
 # ---------------------------------------------------------
+# Import the kmeans and vq functions
+from scipy.cluster.vq import kmeans, vq
 
+# Generate cluster centers
+cluster_centers, distortion = kmeans(comic_con[['x_scaled', 'y_scaled']], 2)
 
-# ---------------------------------------------------------
+# Assign cluster labels
+comic_con['cluster_labels'], distortion_list = vq(comic_con[['x_scaled', 'y_scaled']], cluster_centers)
 
-
-# ---------------------------------------------------------
-
-
-# ---------------------------------------------------------
-
-
-# ---------------------------------------------------------
-
-
-# ---------------------------------------------------------
-
+# Plot clusters
+sns.scatterplot(x='x_scaled', y='y_scaled',
+                hue='cluster_labels', data = comic_con)
+plt.show()
 
 # ---------------------------------------------------------
-
-
-# ---------------------------------------------------------
-
+%timeit kmeans(fifa[['scaled_sliding_tackle', 'scaled_aggression']], 3)
 
 # ---------------------------------------------------------
+distortions = []
+num_clusters = range(1, 7)
 
+# Create a list of distortions from the kmeans function
+for i in num_clusters:
+    cluster_centers, distortion = kmeans(comic_con[['x_scaled','y_scaled']], i)
+    distortions.append(distortion)
+
+# Create a data frame with two lists - num_clusters, distortions
+elbow_plot = pd.DataFrame({'num_clusters': num_clusters, 'distortions': distortions})
+
+# Creat a line plot of num_clusters and distortions
+sns.lineplot(x='num_clusters', y='distortions', data = elbow_plot)
+plt.xticks(num_clusters)
+plt.show()
 
 # ---------------------------------------------------------
+distortions = []
+num_clusters = range(2, 7)
 
+# Create a list of distortions from the kmeans function
+for i in num_clusters:
+    cluster_centers, distortion = kmeans(uniform_data[['x_scaled','y_scaled']], i)
+    distortions.append(distortion)
+
+# Create a data frame with two lists - number of clusters and distortions
+elbow_plot = pd.DataFrame({'num_clusters': num_clusters, 'distortions': distortions})
+
+# Creat a line plot of num_clusters and distortions
+sns.lineplot(x='num_clusters', y='distortions', data=elbow_plot)
+plt.xticks(num_clusters)
+plt.show()
 
 # ---------------------------------------------------------
+# Import random class
+from numpy import random
 
+# Initialize seed
+random.seed(0)
+
+# Run kmeans clustering
+cluster_centers, distortion = kmeans(comic_con[['x_scaled', 'y_scaled']], 2)
+comic_con['cluster_labels'], distortion_list = vq(comic_con[['x_scaled', 'y_scaled']], cluster_centers)
+
+# Plot the scatterplot
+sns.scatterplot(x='x_scaled', y='y_scaled',
+                hue='cluster_labels', data = comic_con)
+plt.show()
 
 # ---------------------------------------------------------
+# Import random class
+from numpy import random
 
+# Initialize seed
+random.seed([1, 2 , 1000])
+
+# Run kmeans clustering
+cluster_centers, distortion = kmeans(comic_con[['x_scaled', 'y_scaled']], 2)
+comic_con['cluster_labels'], distortion_list = vq(comic_con[['x_scaled', 'y_scaled']], cluster_centers)
+
+# Plot the scatterplot
+sns.scatterplot(x='x_scaled', y='y_scaled',
+                hue='cluster_labels', data = comic_con)
+plt.show()
 
 # ---------------------------------------------------------
+# Import the kmeans and vq functions
+from scipy.cluster.vq import kmeans, vq
 
+# Generate cluster centers
+cluster_centers, distortion = kmeans(mouse[['x_scaled','y_scaled']], 3)
+
+# Assign cluster labels
+mouse['cluster_labels'], distortion_list = vq(mouse[['x_scaled','y_scaled']], cluster_centers)
+
+# Plot clusters
+sns.scatterplot(x='x_scaled', y='y_scaled',
+                hue='cluster_labels', data = mouse)
+plt.show()
 
 # ---------------------------------------------------------
+# Set up a random seed in numpy
+random.seed([1000,2000])
 
+# Fit the data into a k-means algorithm
+cluster_centers,_ = kmeans(fifa[['scaled_def', 'scaled_phy']], 3)
+
+# Assign cluster labels
+fifa['cluster_labels'], _ = vq(fifa[['scaled_def', 'scaled_phy']], cluster_centers)
+
+# Display cluster centers
+print(fifa[['scaled_def', 'scaled_phy', 'cluster_labels']].groupby('cluster_labels').mean())
+
+# Create a scatter plot through seaborn
+sns.scatterplot(x='scaled_def', y='scaled_phy', hue='cluster_labels', data=fifa)
+plt.show()
 
 # ---------------------------------------------------------
+# Import image class of matplotlib
+import matplotlib.image as img
 
+# Read batman image and print dimensions
+batman_image = img.imread('batman.jpg')
+print(batman_image.shape)
+
+# Store RGB values of all pixels in lists r, g and b
+for row in batman_image:
+    for temp_r, temp_g, temp_b in row:
+        r.append(temp_r)
+        g.append(temp_g)
+        b.append(temp_b)
+
+# ---------------------------------------------------------
+distortions = []
+num_clusters = range(1, 7)
+
+# Create a list of distortions from the kmeans function
+for i in num_clusters:
+    cluster_centers, distortion = kmeans(batman_df[['scaled_red', 'scaled_blue', 'scaled_green']], i)
+    distortions.append(distortion)
+
+# Create a data frame with two lists, num_clusters and distortions
+elbow_plot = pd.DataFrame({'num_clusters':num_clusters,'distortions':distortions})
+
+# Create a line plot of num_clusters and distortions
+sns.lineplot(x='num_clusters', y='distortions', data = elbow_plot)
+plt.xticks(num_clusters)
+plt.show()
+
+# ---------------------------------------------------------
+# Get standard deviations of each color
+r_std, g_std, b_std = batman_df[['red', 'green', 'blue']].std()
+
+for cluster_center in cluster_centers:
+    scaled_r, scaled_g, scaled_b = cluster_center
+    # Convert each standardized value to scaled value
+    colors.append((
+        scaled_r * r_std / 255,
+        scaled_g * g_std / 255,
+        scaled_b * b_std / 255
+    ))
+
+# Display colors of cluster centers
+plt.imshow([colors])
+plt.show()
+
+# ---------------------------------------------------------
+# Import TfidfVectorizer class from sklearn
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+# Initialize TfidfVectorizer
+tfidf_vectorizer = TfidfVectorizer(max_df=0.75, min_df=0.1, max_features=50, tokenizer=remove_noise)
+
+# Use the .fit_transform() method on the list plots
+tfidf_matrix = tfidf_vectorizer.fit_transform(plots)
+
+# ---------------------------------------------------------
+num_clusters = 2
+
+# Generate cluster centers through the kmeans function
+cluster_centers, distortion = kmeans(tfidf_matrix.todense(), num_clusters)
+
+# Generate terms from the tfidf_vectorizer object
+terms = tfidf_vectorizer.get_feature_names()
+
+for i in range(num_clusters):
+    # Sort the terms and print top 3 terms
+    center_terms = dict(zip(terms, list(cluster_centers[i])))
+    sorted_terms = sorted(center_terms, key=center_terms.get, reverse=True)
+    print(sorted_terms[:3])
+
+# ---------------------------------------------------------
+# Print the size of the clusters
+print(fifa.groupby('cluster_labels')['ID'].count())
+
+# Print the mean value of wages in each cluster
+print(fifa.groupby('cluster_labels')['eur_wage'].mean())
+
+# ---------------------------------------------------------
+# Create centroids with kmeans for 2 clusters
+cluster_centers,_ = kmeans(fifa[scaled_features], 2)
+
+# Assign cluster labels and print cluster centers
+fifa['cluster_labels'], _ = vq(fifa[scaled_features], cluster_centers)
+print(fifa.groupby('cluster_labels')[scaled_features].mean())
+
+# Plot cluster centers to visualize clusters
+fifa.groupby('cluster_labels')[scaled_features].mean().plot(legend=True, kind='bar')
+plt.show()
+
+# Get the name column of first 5 players in each cluster
+for cluster in fifa['cluster_labels'].unique():
+    print(cluster, fifa[fifa['cluster_labels'] == cluster]['name'].values[:5])
 
 # ---------------------------------------------------------
 
